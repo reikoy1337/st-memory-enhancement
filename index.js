@@ -585,7 +585,7 @@ function executeAction(EditAction, sheets) {
             const deleteRow = parseInt(action.rowIndex) + 1
             const cell = sheet.findCellByPosition(deleteRow, 0)
             if (!cell) return -1
-            cell.newAction(cell.CellAction.deleteSelfRow, {}, false)
+            cell.newAction(cell.CellAction.deleteSelfRow, {}, true)
             break
     }
     Logger.debug("执行表格编辑操作", EditAction)
