@@ -586,6 +586,8 @@ function executeAction(EditAction, sheets) {
             const cell = sheet.findCellByPosition(deleteRow, 0)
             if (!cell) return -1
             cell.newAction(cell.CellAction.deleteSelfRow, {}, true)
+            // 立即刷新表格视图，确保删除操作后UI同步更新
+            refreshContextView()
             break
     }
     Logger.debug("执行表格编辑操作", EditAction)
