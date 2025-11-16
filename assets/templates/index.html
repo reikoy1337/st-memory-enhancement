@@ -197,6 +197,97 @@
                                                 <input type="range" id="custom_temperature" min="0.1" max="2.0"
                                                     step="0.1" value="1.0" style="flex-grow: 1;">
                                             </div>
+                                            <div class="flex-container slider-container"
+                                                style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                                                <label
+                                                    style="min-width: 140px; margin: 0; white-space: nowrap; flex-shrink: 0;">
+                                                    Top P：<span id="custom_top_p_value">1.0</span></label>
+                                                <input type="range" id="custom_top_p" min="0.1" max="1.0"
+                                                    step="0.1" value="1.0" style="flex-grow: 1;">
+                                            </div>
+                                            <div class="flex-container slider-container"
+                                                style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                                                <label
+                                                    style="min-width: 140px; margin: 0; white-space: nowrap; flex-shrink: 0;">
+                                                    惩罚值：<span id="custom_frequency_penalty_value">0.0</span></label>
+                                                <input type="range" id="custom_frequency_penalty" min="-2.0" max="2.0"
+                                                    step="0.1" value="0.0" style="flex-grow: 1;">
+                                            </div>
+                                            <div class="flex-container slider-container"
+                                                style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                                                <label
+                                                    style="min-width: 140px; margin: 0; white-space: nowrap; flex-shrink: 0;">
+                                                    最大Token：<span id="custom_max_tokens_value">4000</span></label>
+                                                <input type="range" id="custom_max_tokens" min="100" max="16000"
+                                                    step="100" value="4000" style="flex-grow: 1;">
+                                            </div>
+
+                                            <!-- 运行策略设置 -->
+                                            <div class="range-block justifyLeft" style="margin-bottom: 15px;">
+                                                <label for="run_strategy" data-i18n="Run strategy">运行策略</label>
+                                                <select id="run_strategy" class="flex1" style="min-width: 200px;">
+                                                    <option value="chat_time" data-i18n="Fill table during chat">聊天时填表</option>
+                                                    <option value="after_message" data-i18n="Fill table after receiving message">收到消息后填表</option>
+                                                </select>
+                                            </div>
+
+                                            <!-- AI读表/改表开关 -->
+                                            <div class="checkbox_label range-block justifyLeft">
+                                                <input type="checkbox" id="ai_read_table"><span data-i18n="AI read table">AI读表</span>
+                                            </div>
+                                            <div class="checkbox_label range-block justifyLeft">
+                                                <input type="checkbox" id="ai_modify_table"><span data-i18n="AI modify table">AI改表</span>
+                                            </div>
+
+                                            <!-- 注入模式选择 -->
+                                            <div class="range-block justifyLeft" style="margin-bottom: 15px;">
+                                                <label for="injection_mode" data-i18n="Injection mode">注入模式</label>
+                                                <select id="injection_mode" class="flex1" style="min-width: 200px;">
+                                                    <option value="off" data-i18n="Off">关闭注入</option>
+                                                    <option value="deep_system" data-i18n="Deep system">deep_system</option>
+                                                    <option value="deep_user" data-i18n="Deep user">deep_user</option>
+                                                    <option value="deep_assistant" data-i18n="Deep assistant">deep_assistant</option>
+                                                </select>
+                                            </div>
+
+                                            <!-- 分步填表选项 -->
+                                            <div class="checkbox_label range-block justifyLeft">
+                                                <input type="checkbox" id="use_main_api_step" checked><span data-i18n="Use main API">使用主API</span>
+                                            </div>
+                                            <div style="display: flex; width: calc(100% - 20px); margin-bottom: 15px;">
+                                                <div class="menu_button menu_button_icon" id="table_fill_now">
+                                                    <i class="fa-solid fa-play"></i><a data-i18n="Fill table now">立即填表</a>
+                                                </div>
+                                            </div>
+
+                                            <!-- 上下文层数设置 -->
+                                            <div class="range-block justifyLeft" style="margin-bottom: 15px; padding-left: 5px;">
+                                                <label for="context_layers">上下文层数: <span id="context_layers_value">3</span></label>
+                                                <input type="range" id="context_layers" min="1" max="10" step="1" value="3" class="wide100p">
+                                            </div>
+
+                                            <!-- 读取世界书选项 -->
+                                            <div class="checkbox_label range-block justifyLeft">
+                                                <input type="checkbox" id="read_world_book"><span data-i18n="Read world book">读取世界书</span>
+                                            </div>
+
+                                            <!-- 世界书最大字符数 -->
+                                            <div class="range-block justifyLeft" style="margin-bottom: 15px; padding-left: 5px;">
+                                                <label for="world_book_max_chars">世界书最大字符数: <span id="world_book_max_chars_value">2000</span></label>
+                                                <input type="range" id="world_book_max_chars" min="0" max="10000" step="100" value="2000" class="wide100p">
+                                            </div>
+
+                                            <!-- 自动重试次数 -->
+                                            <div class="range-block justifyLeft" style="margin-bottom: 15px; padding-left: 5px;">
+                                                <label for="step_by_step_retry_count">自动重试次数: <span id="step_by_step_retry_count_value">3</span></label>
+                                                <input type="range" id="step_by_step_retry_count" min="0" max="10" step="1" value="3" class="wide100p">
+                                            </div>
+
+                                            <!-- 最低触发字符数 -->
+                                            <div class="range-block justifyLeft" style="margin-bottom: 15px; padding-left: 5px;">
+                                                <label for="step_by_step_min_char_trigger">最低触发字符数: <span id="step_by_step_min_char_trigger_value">200</span></label>
+                                                <input type="range" id="step_by_step_min_char_trigger" min="0" max="5000" step="10" value="200" class="wide100p">
+                                            </div>
 
                                             <!-- 代理设置 -->
                                             <div class="inline-drawer wide100p">
