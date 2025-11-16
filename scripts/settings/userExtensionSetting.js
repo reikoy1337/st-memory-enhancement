@@ -495,6 +495,53 @@ function InitBinging() {
         USER.tableBaseSetting.custom_temperature = Number(value);
     });
 
+    // Top P 设置
+    $('#custom_top_p').on('input', function() {
+        const value = $(this).val();
+        $('#custom_top_p_value').text(value);
+        USER.tableBaseSetting.custom_top_p = Number(value);
+    });
+
+    // 频率惩罚值设置
+    $('#custom_frequency_penalty').on('input', function() {
+        const value = $(this).val();
+        $('#custom_frequency_penalty_value').text(value);
+        USER.tableBaseSetting.custom_frequency_penalty = Number(value);
+    });
+
+    // 存在惩罚值设置
+    $('#custom_presence_penalty').on('input', function() {
+        const value = $(this).val();
+        $('#custom_presence_penalty_value').text(value);
+        USER.tableBaseSetting.custom_presence_penalty = Number(value);
+    });
+
+    // 最大Token设置
+    $('#custom_max_tokens').on('input', function() {
+        const value = $(this).val();
+        $('#custom_max_tokens_value').text(value);
+        USER.tableBaseSetting.custom_max_tokens = Number(value);
+    });
+
+    // 运行策略选择
+    $('#custom_run_policy').change(function(event) {
+        USER.tableBaseSetting.custom_run_policy = event.target.value;
+    });
+
+    // 自动重试次数设置
+    $('#custom_auto_retry_count').on('input', function() {
+        const value = $(this).val();
+        $('#custom_auto_retry_count_value').text(value);
+        USER.tableBaseSetting.custom_auto_retry_count = Number(value);
+    });
+
+    // 最低触发字符数设置
+    $('#custom_min_trigger_chars').on('input', function() {
+        const value = $(this).val();
+        $('#custom_min_trigger_chars_value').text(value);
+        USER.tableBaseSetting.custom_min_trigger_chars = Number(value);
+    });
+
     // 代理地址
     $('#table_proxy_address').on('input', function() {
         USER.IMPORTANT_USER_PRIVACY_DATA.table_proxy_address = $(this).val();
@@ -564,6 +611,34 @@ export function renderSetting() {
     $('#rebuild_token_limit_value').text(USER.tableBaseSetting.rebuild_token_limit_value);
     $('#custom_temperature').val(USER.tableBaseSetting.custom_temperature);
     $('#custom_temperature_value').text(USER.tableBaseSetting.custom_temperature);
+
+    // Top P 设置
+    $('#custom_top_p').val(USER.tableBaseSetting.custom_top_p);
+    $('#custom_top_p_value').text(USER.tableBaseSetting.custom_top_p);
+
+    // 频率惩罚值设置
+    $('#custom_frequency_penalty').val(USER.tableBaseSetting.custom_frequency_penalty);
+    $('#custom_frequency_penalty_value').text(USER.tableBaseSetting.custom_frequency_penalty);
+
+    // 存在惩罚值设置
+    $('#custom_presence_penalty').val(USER.tableBaseSetting.custom_presence_penalty);
+    $('#custom_presence_penalty_value').text(USER.tableBaseSetting.custom_presence_penalty);
+
+    // 最大Token设置
+    $('#custom_max_tokens').val(USER.tableBaseSetting.custom_max_tokens);
+    $('#custom_max_tokens_value').text(USER.tableBaseSetting.custom_max_tokens);
+
+    // 运行策略选择
+    $('#custom_run_policy').val(USER.tableBaseSetting.custom_run_policy);
+
+    // 自动重试次数设置
+    $('#custom_auto_retry_count').val(USER.tableBaseSetting.custom_auto_retry_count);
+    $('#custom_auto_retry_count_value').text(USER.tableBaseSetting.custom_auto_retry_count);
+
+    // 最低触发字符数设置
+    $('#custom_min_trigger_chars').val(USER.tableBaseSetting.custom_min_trigger_chars);
+    $('#custom_min_trigger_chars_value').text(USER.tableBaseSetting.custom_min_trigger_chars);
+
     // Load step-by-step user prompt
     $('#step_by_step_user_prompt').val(USER.tableBaseSetting.step_by_step_user_prompt || '');
     // 分步填表读取的上下文层数
