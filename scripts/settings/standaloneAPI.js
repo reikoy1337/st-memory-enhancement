@@ -742,3 +742,92 @@ export function ext_exportAllTablesAsJson() {
         return {}; // 发生意外时返回空对象
     }
 }
+
+/**
+ * 保存数据到本地存储
+ * @param {string} key - 存储键名
+ * @param {any} data - 要存储的数据
+ */
+export function saveDataToLocalStorage(key, data) {
+    try {
+        const jsonString = JSON.stringify(data);
+        localStorage.setItem(key, jsonString);
+        console.log(`数据已保存到本地存储: ${key}`);
+    } catch (error) {
+        console.error(`保存数据到本地存储失败 (${key}):`, error);
+    }
+}
+
+/**
+ * 从本地存储读取数据
+ * @param {string} key - 存储键名
+ * @returns {any} 读取的数据
+ */
+export function readDataFromLocalStorage(key) {
+    try {
+        const jsonString = localStorage.getItem(key);
+        if (jsonString) {
+            return JSON.parse(jsonString);
+        }
+        return null;
+    } catch (error) {
+        console.error(`从本地存储读取数据失败 (${key}):`, error);
+        return null;
+    }
+}
+
+/**
+ * 将哈希表转换为JSON格式
+ * @param {Object} hashSheets - 哈希表数据
+ * @returns {Object} 转换后的JSON数据
+ */
+export function ext_hashSheetsToJson(hashSheets) {
+    const exportData = {};
+    if (!hashSheets) return exportData;
+    try {
+        const tables = BASE.hashSheetsToSheets(hashSheets);
+        tables?.forEach(table => {
+            if (table.enable) {
+                exportData[table.uid] = { uid: table.uid, name: table.name, content: table.getContent(true) || [] };
+            }
+        });
+    } catch (error) {
+        console.error("从 hash_sheets 转换表格时发生意外错误:", error);
+    }
+    return exportData;
+}
+
+/**
+ * 构建Google API请求
+ * @param {Array} messages - 消息数组
+ * @param {string} model - 模型名称
+ * @param {string} apiKey - API密钥
+ * @returns {Object} 请求配置对象
+ */
+export function buildGoogleRequest(messages, model, apiKey) {
+    return {
+        url: 'https://generativelanguage.googleapis.com/v1/models/' + model + ':generateContent',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + apiKey
+        },
+        body: JSON.stringify({
+            contents: messages.map(msg => ({
+                parts: [{ text: msg.content }]
+            }))
+        })
+    };
+}
+
+/**
+ * 解析Google API响应
+ * @param {Object} response - API响应对象
+ * @returns {string} 解析后的文本内容
+ */
+export function parseGoogleResponse(response) {
+    if (response && response.candidates && response.candidates[0] && response.candidates[0].content && response.candidates[0].content.parts && response.candidates[0].content.parts[0]) {
+        return response.candidates[0].content.parts[0].text;
+    }
+    throw new Error('Invalid Google API response format');
+}
